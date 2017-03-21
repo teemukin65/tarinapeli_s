@@ -1,0 +1,44 @@
+@startuml
+
+
+class Game {
+
+__
+ EndingConditions
+
+ }
+
+Game "n"*--"PlayerCount" Player: Players
+
+Game "1"--"1" Player: GameInitiator
+
+Game "1"--"PlayerCount" Story
+
+class Player {
+__
+Email
+Password
+}
+class Story {
+
+
+}
+
+
+Story "1" *-- "n" Fragment
+class Fragment {
+
+__
+Line1
+Line2
+LineHint
+
+}
+
+class Turn {
+
+}
+
+
+
+@enduml
