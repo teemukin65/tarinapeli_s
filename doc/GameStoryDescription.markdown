@@ -35,3 +35,14 @@ When the game ending criteria is fullfilled, or 1st player presses See the story
 created by players. Each story list item shows if some player is still writing i.e. not submitted his/her last part.
  Other players are also forwarded to the story list after they finished the last story part.
 The complete stories can be viewed via the story list.
+
+
+## Information queries
+
+Who is has turn to write in a story of the game?
+
+What is the next writer for a story?
+
+What is my next hint line?
+
+
