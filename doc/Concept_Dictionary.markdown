@@ -14,8 +14,7 @@ EMailAddress
 GameTitle
 GameDescription
 
-InvitationMessage := (GameTitle, GameDescription),
-
+InvitationMessage := (GameTitle, GameDescription) InvitationLunk
 NumberOfTurns
 
 PlayingTime
