@@ -1,50 +1,67 @@
 StoryGame --- concept dictionary
 ================================
 
-FirstPlayer := Player who initiates the game and
 
-Game := status: Initiating | Inviting | Playing | Ending | Viewing
+GameInitiator := Player who initiates the game
 
-PlayingOrder
+Game := GameStatus + (GameTitle) + (GameDescription) + PlayingOrder +
+       (EndingCriteria) + StoryList + GameStartTime + (GameEndTime)
+GameStatus: [Initiating | Inviting | Playing | Ending | Viewing]
 
-EndingCriteria := NumberOfTurns , PlayingTimeMax,
+PlayingOrder := 1{Player}NumberOfPlayers
+
+EndingCriteria := (NumberOfTurns) + (PlayingTimeMax)
 
 EMailAddress
 
-GameTitle
-GameDescription
+GameTitle := 1{M}80 * Title attracting potential players
+GameDescription := 1{M}160 * some further narrative to invitation message
 
-InvitationMessage := (GameTitle, GameDescription) InvitationLunk
-NumberOfTurns
+InvitationMessage := (GameTitle)+ (GameDescription) + InvitationLink
+
+NumberOfTurns := Number of parts each player writes to each story.
 
 PlayingTime
 
 GameInformation = GAmeTitle
 
-InvitationLink
+InvitationLink := * personal URL link for the player to access the game.
 
-Player :=
+Player := EMailAddress + (NickName)
 
-NickName
+NickName:= * If player has not provided nickname, other players
+      see his/her eMailAddress for identification
 
-Story
+Story:= 1{Part}N +
+        CurrentPlayer +
+        StoryStatus
+       /LastLine +
+       /LastStoryPart
 
-Line
+StoryStatus:= [Waiting| Writing | Reading]
+Line := 1{M}MAX_LINE_LENGTH
 
-Part
+Part:= 3{Line}3 +
+       Player + * who wrote this part
+        /Completed * completed after all 3 lines are provided +
+        /LastLine
 
-CompletedPart
+CompletedPart := * Part
 
 LastLine
-
-CompletedPart
 
 NextStory
 
 SeeStory
 
-StoryList
+StoryList :=  1{Story}NumberOfPlayers
 
-LastStoryPart
 
-CompletedStory
+
+CompletedStory:= * Story after either:
+                  1) ending criteria fullfilled
+                  2) GameInitiator set the game to Ending GameStatus
+                 AND
+                  all the Stories change to Waiting status
+
+MAX_LINE_LENGTH = 80 ??

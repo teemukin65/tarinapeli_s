@@ -4,36 +4,48 @@
 class Game {
 
 __
- EndingConditions
+GameStatus
 
+EndingCriteria
+(GameTitle)
+(GameDescription)
+GameStartTime
+GameEndTime
  }
 
-Game "n"*--"PlayerCount" Player: Players
+Game "n" *-- "PlayerCount" Player: PlayingOrder
 
-Game "1"--"1" Player: GameInitiator
+Game "1" *-- "1" Player: GameInitiator
 
-Game "1"--"PlayerCount" Story
+Game "1" o-- "PlayerCount" Story: StoryList
 
 class Player {
 __
 Email
-Password
+(NickName)
 }
+
+
 class Story {
-
+___
+StoryStatus
 
 }
 
+Story "1"--"1" Player: CurrentPlayer
 
-Story "1" *-- "n" Fragment
-class Fragment {
+
+Story "1" *-- "n" Part
+class Part {
 
 __
 Line1
 Line2
-LineHint
+Line3
 
 }
+
+Part "1" <-- "1" Player : Writer
 
 class Turn {
 

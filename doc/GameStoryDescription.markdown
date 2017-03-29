@@ -4,7 +4,8 @@
 
 ## Game initiation
 
-1st player starts the game by giving list of e-mail addresses (in the playing order) of the other players and perhaps a title and description
+1st player (GameInitiator) starts the game by giving list of e-mail addresses (in the playing order)
+of the other players and perhaps a title and description
 of the game for other players's invitation messages. 1st player also defines game ending criteria,
 which could be:
    - number of turns of the each player for a story
@@ -39,7 +40,7 @@ The complete stories can be viewed via the story list.
 
 ## Information queries
 
-Who is has turn to write in a story of the game?
+Who has the turn to write in a story of the game?
 
 What is the next writer for a story?
 
