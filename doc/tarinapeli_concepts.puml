@@ -13,9 +13,16 @@ GameStartTime
 GameEndTime
  }
 
-Game "n" *-- "PlayerCount" Player: PlayingOrder
+Game "n" *-- "PlayerCount" Player
+(Game, Player) .. PlayingOrder
 
-Game "1" *-- "1" Player: GameInitiator
+
+class PlayingOrder {
+__
+OrderNo
+}
+
+Game "1 - GameInitiator" *-- "1" Player: InitiatesGame
 
 Game "1" o-- "PlayerCount" Story: StoryList
 
@@ -39,6 +46,7 @@ Story "1" *-- "n" Part
 class Part {
 
 __
+PartOrderNumber
 Line1
 Line2
 Line3
