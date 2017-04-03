@@ -8,7 +8,7 @@ Game := GameStatus + (GameTitle) + (GameDescription) + PlayingOrder +
        (EndingCriteria) + StoryList + GameStartTime + (GameEndTime)
 GameStatus: [Initiating | Inviting | Playing | Ending | Viewing]
 
-PlayingOrder := 1{Player}NumberOfPlayers
+PlayersGame := PlayingOrderNumber + PlayerStatus + PlayersLink
 
 EndingCriteria := (NumberOfTurns) + (PlayingTimeMax)
 
@@ -17,15 +17,20 @@ EMailAddress
 GameTitle := 1{M}80 * Title attracting potential players
 GameDescription := 1{M}160 * some further narrative to invitation message
 
-InvitationMessage := (GameTitle)+ (GameDescription) + InvitationLink
+InvitationMessage := (GameTitle)+ (GameDescription) + PlayersLink
 
 NumberOfTurns := Number of parts each player writes to each story.
 
 PlayingTime
 
-GameInformation = GAmeTitle
 
-InvitationLink := * personal URL link for the player to access the game.
+PlayerStatus:= [Invited * invitation message sent
+|Joining * invitation link followed, nickname not confirmed/skipped
+|Waiting * Nickname view passed, game not yet started
+|Playing * Game started
+|Aftermath * Writing completed for all stories, reading only]
+
+PlayersLink := * personal URL link for the player to access the game.
 
 Player := EMailAddress + (NickName)
 
@@ -42,7 +47,7 @@ StoryStatus:= [Waiting| Writing | Reading]
 Line := 1{M}MAX_LINE_LENGTH
 
 Part:= 3{Line}3 +
-       Player + * who wrote this part
+       Writer + * Player who wrote this part
         /Completed * completed after all 3 lines are provided +
         /LastLine
 
