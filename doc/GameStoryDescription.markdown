@@ -38,12 +38,20 @@ created by players. Each story list item shows if some player is still writing i
 The complete stories can be viewed via the story list.
 
 
-## Information queries
+## Information queries - access paths
 
 Who has the turn to write in a story of the game?
 
+Game --*> Story --> currentPlayer
+
 What is the next writer for a story?
+
+Story --> CurrentPlayer
+Story --> Game - PlayingOrdering/lLayersGame -*> --> Player
 
 What is my next hint line?
 
+Player --*> Game  --> Story  --> CurrentPlayer
+CurrentPlayer -PlayingOrdering-*> Game --*> Story  * story is selected according to some algorithm
+Story --> Part  --> LastLine
 

@@ -13,7 +13,7 @@ GameStartTime
 GameEndTime
  }
 
-Game "n" *-- "PlayerCount" Player
+Game "n" *-- "PlayerCount" Player : PlayingOrdering
 (Game, Player) .. PlayersGame
 
 
@@ -37,6 +37,7 @@ Email
 
 class Story {
 ___
+StoryOrderNumber
 StoryStatus
 /LastLine
 /LastStoryPart
@@ -60,11 +61,4 @@ Line3
 }
 
 Part "1" <-- "1" Player : Writer
-
-class Turn {
-
-}
-
-
-
 @enduml
