@@ -2,10 +2,18 @@
 
 
 
-Game(@GameInitiator, @GameInitiationTime, GameDesription, GameStartTime, GameEndTime)
+Game(@GameInitiator -->PLAYER(@Email),
+     @GameInitiationTime,
+     GameDesription, GameStartTime, GameEndTime)
 
-Story(@Game-->(@GameInitiator, @GameInitiationTime), @StoryOrderNumber,
-   StoryStatus, CurrentPlayer->(@Email))
+Story((@GameInitiator, @GameInitiationTime)-->GAME, @StoryOrderNumber,
+   StoryStatus, (@Email)-CurrentPlayer->PLAYER)
 
-Part(@Story-->(@Game, @StoryOrderNumber), @PartOrderNumber, Line1, Line2, Line3
-    Writer->Player
+Part((@GameInitiator, @GameInitiationTime, @StoryOrderNumber)-->STORY,
+      @PartOrderNumber,
+    (@Email)-Writer->Player,
+    Line1, Line2, Line3)
+
+PlayersGame((@GameInitiator, @GameInitiationTime)-->GAME,
+            (@Email)-->PLAYER,
+            OrderNo, PlayerStatus, PlayersLink)

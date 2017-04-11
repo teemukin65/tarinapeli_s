@@ -47,10 +47,17 @@ Game --*> Story --> currentPlayer
 What is the next writer for a story?
 
 Story --> CurrentPlayer
-Story --> Game - PlayingOrdering/lLayersGame -*> --> Player
+Story --> Game - PlayingOrdering/PlayersGame -*> --> Player
 
 What is my next hint line?
 
 Player --*> Game  --*> Story  --> CurrentPlayer
 CurrentPlayer -PlayingOrdering-*> Game --*> Story  * story is selected according to some algorithm
 Story --> Part  --> LastLine
+
+
+Player adds new part for a story
+
+Story --*> Part
+
+
