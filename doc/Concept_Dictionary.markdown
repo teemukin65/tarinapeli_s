@@ -4,24 +4,41 @@ StoryGame --- concept dictionary
 
 GameInitiator := Player who initiates the game
 
-Game := GameStatus + (GameTitle) + (GameDescription) + PlayingOrder +
-       (EndingCriteria) + StoryList + GameStartTime + (GameEndTime)
-GameStatus: [Initiating | Inviting | Playing | Ending | Viewing]
+Game := @GameInitiator + GameStatus + (GameTitle) + (GameDescription) + PlayingOrder +
+       (EndingCriteria) + StoryList + @GameInitiationTime +
+       GameStartTime + (GameEndTime)
+GameStatus:= [Initiating * GameInitiator is writing invitation and selecting Players
+    | Inviting * Invitations are being sent and Answers awaited.
+    | Playing * All Invitations has been accepted or
+          * GameInitiator forcibly has started the game
+    | Ending * Ending criteria has been fullfilled, but incomplete parts
+    are being written still.
+    | Viewing * ]
 
-PlayersGame := PlayingOrderNumber + PlayerStatus + PlayersLink
+GameInitiationTime:= * moment when GameInitiator sends has submitted
+        the initiation information
+
+PlayersGame := PlayingOrderNumber + PlayerStatus + /PlayersLink
 
 EndingCriteria := (NumberOfTurns) + (PlayingTimeMax)
 
-EMailAddress
+EMailAddress :=
 
 GameTitle := 1{M}80 * Title attracting potential players
 GameDescription := 1{M}160 * some further narrative to invitation message
 
-InvitationMessage := (GameTitle)+ (GameDescription) + PlayersLink
+InvitationMessage := (GameTitle)+ (GameDescription) + /PlayersLink
 
-NumberOfTurns := Number of parts each player writes to each story.
+PlayersLink := * URL for this user to access the game.
+     * Includes authorization for users's email address
+     * potentially may be sufficient for authentication (JWTj?)
 
-PlayingTime
+NumberOfTurns := * Number of parts each player writes to each story.
+        * Thereafter user will not get new turn for that story
+        * After no stories are left, user move to aftermath- status
+
+PlayingTime : After that time has elapsed from GameStartingTime no
+       * Storystatus moves to Reading and
 
 
 PlayerStatus:= [Invited * invitation message sent
@@ -31,6 +48,7 @@ PlayerStatus:= [Invited * invitation message sent
 |Aftermath * Writing completed for all stories, reading only]
 
 PlayersLink := * personal URL link for the player to access the game.
+        * accessible view depends on game and player status
 
 Player := EMailAddress + (NickName)
 
@@ -51,13 +69,9 @@ Part:= 3{Line}3 +
         /Completed * completed after all 3 lines are provided +
         /LastLine
 
-CompletedPart := * Part
-
 LastLine
 
 NextStory
-
-SeeStory
 
 StoryList :=  1{Story}NumberOfPlayers
 

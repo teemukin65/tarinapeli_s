@@ -51,7 +51,6 @@ Story --> Game - PlayingOrdering/lLayersGame -*> --> Player
 
 What is my next hint line?
 
-Player --*> Game  --> Story  --> CurrentPlayer
+Player --*> Game  --*> Story  --> CurrentPlayer
 CurrentPlayer -PlayingOrdering-*> Game --*> Story  * story is selected according to some algorithm
 Story --> Part  --> LastLine
-

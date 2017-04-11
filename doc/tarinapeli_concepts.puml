@@ -9,6 +9,7 @@ GameStatus
 EndingCriteria
 (GameTitle)
 (GameDescription)
+GameInitiationTime
 GameStartTime
 GameEndTime
  }
