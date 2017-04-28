@@ -1,0 +1,21 @@
+version: '2'
+services:
+  web:
+    build:
+     context: .
+     dockerfile: ./src/main/docker/Dockerfile
+    ports:
+      - "8080:8080"
+    env_file: .env
+    depends_on:
+      - db
+    volumes:
+      - ./webapp:/opt/webapp
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+#  redis:
+#    image: redis:alpine
+#    ports:
+#      - "6379:6379"

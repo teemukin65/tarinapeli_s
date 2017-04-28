@@ -10,9 +10,9 @@ import javax.print.DocFlavor;
  */
 @Repository
 @Data
-public class Fragment {
+public class Part {
 
     public String line1;
     public String line2;
-    public String hintLine;
+    public String line3;
 }
