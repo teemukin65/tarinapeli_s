@@ -116,6 +116,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jooq</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
+
 
     </dependencies>
 
@@ -143,7 +148,7 @@
                 <executions>
                     <execution>
                         <id>flyway-migrate-database</id>
-                        <phase>initialize</phase>
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>migrate</goal>
                         </goals>
@@ -206,7 +211,7 @@
                         </generate>
                         <target>
                             <packageName>fi.teemukin65.hobby.tarinapeli.domain</packageName>
-                            <directory>src/main/java</directory>
+                            <directory>target/generated-sources/jooq-postgres</directory>
                         </target>
                     </generator>
                 </configuration>

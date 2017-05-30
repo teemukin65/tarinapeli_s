@@ -1,6 +1,6 @@
 package fi.teemukin65.hobby.tarinapeli.config;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
+import javax.sql.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DataSourceConnectionProvider;
@@ -32,22 +32,16 @@ public class PersistenceContextConfig
     @Autowired
     private Environment env;
 
-    @Bean(destroyMethod = "close")
-    public DataSource dataSource() {
-        PoolProperties properties= new PoolProperties();
-        properties.setUrl(env.getRequiredProperty("spring.datasource.url"));
-        DataSource dataSource = new DataSource(properties);
-//        dataSource.set
-        return dataSource;
-    }
-
-    @Bean
-    public LazyConnectionDataSourceProxy lazyConnectionDataSource() {
-        return new LazyConnectionDataSourceProxy(dataSource());
-    }
+    @Autowired
+    private DataSource dataSource;
 
     @Bean
     @Primary
+    public LazyConnectionDataSourceProxy lazyConnectionDataSource() {
+        return new LazyConnectionDataSourceProxy(dataSource);
+    }
+
+    @Bean
     public TransactionAwareDataSourceProxy transactionAwareDataSource() {
         return new TransactionAwareDataSourceProxy(lazyConnectionDataSource());
     }
@@ -88,7 +82,7 @@ public class PersistenceContextConfig
     @Bean
     public DataSourceInitializer dataSourceInitializer() {
         DataSourceInitializer initializer = new DataSourceInitializer();
-        initializer.setDataSource(dataSource());
+        initializer.setDataSource(dataSource);
 
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.addScript(
