@@ -22,9 +22,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <project.database.url>jdbc:postgresql://localhost:5432/storygame</project.database.url>
-        <project.database.username>storyadmin</project.database.username>
-        <project.database.password>storyadmin</project.database.password>
+        <project.database.url>jdbc:postgresql://localhost:5431/postgres</project.database.url>
+        <project.database.username>postgres</project.database.username>
+        <project.database.password></project.database.password>
     </properties>
 
     <dependencies>
@@ -120,6 +120,11 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
         </dependency>
+        <dependency>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
 
     </dependencies>
@@ -133,6 +138,24 @@
                     <addResources>true</addResources>
                 </configuration>
             </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>properties-maven-plugin</artifactId>
+              <executions>
+           <!-- Associate the read-project-properties goal with the initialize phase, to read the properties file. -->
+              <execution>
+                <phase>initialize</phase>
+              <goals>
+                <goal>read-project-properties</goal>
+              </goals>
+            <configuration>
+              <files>
+                <file>env.properties</file>
+              </files>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
