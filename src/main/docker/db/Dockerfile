@@ -1,0 +1,3 @@
+# Dockerfile for db of storygame
+FROM postgres:alpine
+ADD init-user-db.sh /docker-entrypoint-initdb.d/init-user-db.sh

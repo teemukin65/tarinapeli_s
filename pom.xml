@@ -22,9 +22,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <project.database.url>jdbc:postgresql://localhost:5431/postgres</project.database.url>
-        <project.database.username>postgres</project.database.username>
-        <project.database.password></project.database.password>
+        <project.database.url>jdbc:postgresql://localhost:${POSTGRES_DB_PORT}/${POSTGRES_STORY_DB}</project.database.url>
+        <project.database.username>${POSTGRES_STORY_USER}</project.database.username>
+        <project.database.password>${POSTGRES_STORY_PASSWORD}</project.database.password>
     </properties>
 
     <dependencies>
@@ -71,9 +71,9 @@
             <scope>runtime</scope>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>com.h2database</groupId>-->
-            <!--<artifactId>h2</artifactId>-->
-            <!--<scope>runtime</scope>-->
+        <!--<groupId>com.h2database</groupId>-->
+        <!--<artifactId>h2</artifactId>-->
+        <!--<scope>runtime</scope>-->
         <!--</dependency>-->
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -121,8 +121,8 @@
             <artifactId>HikariCP</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>properties-maven-plugin</artifactId>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
             <version>1.0.0</version>
         </dependency>
 
@@ -132,30 +132,30 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <executions>
+                    <!-- Associate the read-project-properties goal with the initialize phase, to read the properties file. -->
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>.env</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <addResources>true</addResources>
                 </configuration>
             </plugin>
-            <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>properties-maven-plugin</artifactId>
-              <executions>
-           <!-- Associate the read-project-properties goal with the initialize phase, to read the properties file. -->
-              <execution>
-                <phase>initialize</phase>
-              <goals>
-                <goal>read-project-properties</goal>
-              </goals>
-            <configuration>
-              <files>
-                <file>env.properties</file>
-              </files>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
@@ -211,14 +211,15 @@
                 <configuration>
                     <jdbc>
                         <driver>org.postgresql.Driver</driver>
-                        <url>jdbc:postgresql://localhost:5432/storygame</url>
+                        <url>${project.database.url}</url>
                         <user>${project.database.username}</user>
                         <password>${project.database.password}</password>
                     </jdbc>
                     <generator>
                         <database>
                             <name>org.jooq.util.postgres.PostgresDatabase</name>
-                            <schemaVersionProvider>SELECT :schema_name || '_' || MAX("version") FROM "schema_version"</schemaVersionProvider>
+                            <schemaVersionProvider>SELECT :schema_name || '_' || MAX("version") FROM "schema_version"
+                            </schemaVersionProvider>
                             <includes>.*</includes>
                             <excludes>public.schema_version</excludes>
                             <inputSchema>public</inputSchema>
@@ -290,7 +291,7 @@
                 <executions>
                     <execution>
                         <id>Copy frontend production build to resources</id>
-                        <phase>package</phase>
+                        <phase>none</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>

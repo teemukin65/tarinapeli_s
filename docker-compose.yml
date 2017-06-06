@@ -7,13 +7,12 @@ services:
     ports:
       - "8080:8080"
     env_file: .env
-    depends_on:
-      - db
     volumes:
       - ./webapp:/opt/webapp
   db:
-    image: postgres:latest
     env_file: .env
+    build:
+      context: ./src/main/docker/db/
     ports:
       - "5431:5432"
 #  redis:
