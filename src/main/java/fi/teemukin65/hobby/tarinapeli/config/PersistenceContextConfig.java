@@ -1,15 +1,14 @@
 package fi.teemukin65.hobby.tarinapeli.config;
 
-import javax.sql.DataSource;
-import org.apache.tomcat.jdbc.pool.PoolProperties;
+import com.zaxxer.hikari.HikariDataSource;
+import org.apache.log4j.Logger;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
 import org.jooq.impl.DefaultDSLContext;
 import org.jooq.impl.DefaultExecuteListenerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -19,6 +18,8 @@ import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
 
 /**
  * Created by teemu on 12.5.2017.
@@ -32,13 +33,20 @@ public class PersistenceContextConfig
     @Autowired
     private Environment env;
 
-    @Autowired
-    private DataSource dataSource;
+    @Bean(destroyMethod = "close")
+    @Primary
+    public DataSource dataSource(){
+        HikariDataSource hikariDataSource = new HikariDataSource();
+        hikariDataSource.setDriverClassName(env.getRequiredProperty("spring.datasource.driver-class-name"));
+        hikariDataSource.setJdbcUrl(env.getRequiredProperty("spring.datasource.url"));
+        hikariDataSource.setUsername(env.getRequiredProperty("spring.datasource.username"));
+        hikariDataSource.setPassword(env.getRequiredProperty("spring.datasource.password"));
+        return hikariDataSource;
+    }
 
     @Bean
-    @Primary
     public LazyConnectionDataSourceProxy lazyConnectionDataSource() {
-        return new LazyConnectionDataSourceProxy(dataSource);
+        return new LazyConnectionDataSourceProxy(dataSource());
     }
 
     @Bean
@@ -82,13 +90,13 @@ public class PersistenceContextConfig
     @Bean
     public DataSourceInitializer dataSourceInitializer() {
         DataSourceInitializer initializer = new DataSourceInitializer();
-        initializer.setDataSource(dataSource);
+        initializer.setDataSource(dataSource());
 
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScript(
-                new ClassPathResource(env.getRequiredProperty("db.schema.script"))
-        );
-
+//        populator.addScript(
+//                new ClassPathResource(env.getRequiredProperty("db.schema.script"))
+//        );
+//
         initializer.setDatabasePopulator(populator);
         return initializer;
     }

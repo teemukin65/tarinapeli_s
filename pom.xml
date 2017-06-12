@@ -134,16 +134,18 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0.0</version>
                 <executions>
                     <!-- Associate the read-project-properties goal with the initialize phase, to read the properties file. -->
                     <execution>
                         <phase>initialize</phase>
+                        <id>read_properties_from_dot_env</id>
                         <goals>
                             <goal>read-project-properties</goal>
                         </goals>
                         <configuration>
                             <files>
-                                <file>.env</file>
+                                <file>./.env</file>
                             </files>
                         </configuration>
                     </execution>
@@ -291,7 +293,7 @@
                 <executions>
                     <execution>
                         <id>Copy frontend production build to resources</id>
-                        <phase>none</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
