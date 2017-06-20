@@ -230,8 +230,7 @@
                         <generate>
                             <deprecated>false</deprecated>
                             <pojos>true</pojos>
-                            <immutablePojos>true</immutablePojos>
-                            <daos>true</daos>
+                            <immutablePojos>false</immutablePojos>
                             <jpaAnnotations>true</jpaAnnotations>
                             <validationAnnotations>true</validationAnnotations>
                         </generate>
