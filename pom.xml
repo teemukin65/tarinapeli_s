@@ -223,6 +223,9 @@
                             <schemaVersionProvider>SELECT :schema_name || '_' || MAX("version") FROM "schema_version"
                             </schemaVersionProvider>
                             <includes>.*</includes>
+                            <includePrimaryKeys>true</includePrimaryKeys>
+                            <includeForeignKeys>true</includeForeignKeys>
+                            <syntheticPrimaryKeys>public\.players_game\.(game|player|order_no)</syntheticPrimaryKeys>
                             <excludes>public.schema_version</excludes>
                             <inputSchema>public</inputSchema>
                             <outputSchemaToDefault>true</outputSchemaToDefault>
@@ -230,12 +233,13 @@
                         <generate>
                             <deprecated>false</deprecated>
                             <pojos>true</pojos>
+                            <interfaces>true</interfaces>
                             <immutablePojos>false</immutablePojos>
                             <jpaAnnotations>true</jpaAnnotations>
                             <validationAnnotations>true</validationAnnotations>
                         </generate>
                         <target>
-                            <packageName>fi.teemukin65.hobby.tarinapeli.domain</packageName>
+                            <packageName>fi.teemukin65.hobby.tarinapeli.query</packageName>
                             <directory>target/generated-sources/jooq-postgres</directory>
                         </target>
                     </generator>

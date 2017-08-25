@@ -1,38 +1,47 @@
 package fi.teemukin65.hobby.tarinapeli.config;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.apache.log4j.Logger;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
 import org.jooq.impl.DefaultDSLContext;
 import org.jooq.impl.DefaultExecuteListenerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.*;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by teemu on 12.5.2017.
  */
 @Configuration
-@ComponentScan({"fi.teemukin65.hobby.tarinapeli.domain"})
+@EntityScan({"fi.teemukin65.hobby.tarinapeli.domain"})
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 public class PersistenceContextConfig
 {
-    @Autowired
-    private Environment env;
+    private final Environment env;
 
+    @Autowired
+    public PersistenceContextConfig(Environment env) {
+        this.env = env;
+    }
+
+    @SuppressWarnings("ContextJavaBeanUnresolvedMethodsInspection")
     @Bean(destroyMethod = "close")
     @Primary
     public DataSource dataSource(){
@@ -44,24 +53,43 @@ public class PersistenceContextConfig
         return hikariDataSource;
     }
 
+    // Hibernate
+    @Bean
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource());
+        List<String> packages = new ArrayList<>();
+        packages.add("fi.teemukin65.hobby.tarinapeli.domain");
+        sessionFactory.setPackagesToScan(packages.toArray(new String[packages.size()]));
+        return sessionFactory;
+    }
+
     @Bean
     public LazyConnectionDataSourceProxy lazyConnectionDataSource() {
         return new LazyConnectionDataSourceProxy(dataSource());
     }
 
+
+    @Bean
+    public HibernateTransactionManager transactionManager() {
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(sessionFactory().getObject());
+        transactionManager.setDataSource(lazyConnectionDataSource());
+        return transactionManager;
+    }
+
+
+    // Jooq
+
     @Bean
     public TransactionAwareDataSourceProxy transactionAwareDataSource() {
         return new TransactionAwareDataSourceProxy(lazyConnectionDataSource());
     }
-    @Bean
-    public DataSourceTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(lazyConnectionDataSource());
-    }
+
     @Bean
     public DataSourceConnectionProvider connectionProvider() {
         return new DataSourceConnectionProvider(transactionAwareDataSource());
     }
-
     @Bean
     public JOOQToSpringExceptionTransformer jooqToSpringExceptionTransformer() {
         return new JOOQToSpringExceptionTransformer();
