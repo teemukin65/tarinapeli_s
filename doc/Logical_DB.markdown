@@ -12,6 +12,9 @@ Story((@GameInitiator, @GameInitiationTime)-->GAME, @StoryOrderNumber,
 Part((@GameInitiator, @GameInitiationTime, @StoryOrderNumber)-->STORY,
       @PartOrderNumber,
     Writer(@Email)-->Player,
+    Line1,
+    Line2,
+    Line3)
 
 
 PlayersGame((@GameInitiator, @GameInitiationTime)-->GAME,

@@ -7,13 +7,12 @@ GameInitiator := Player who initiates the game
 Game := @GameInitiator + GameStatus + (GameTitle) + (GameDescription) + PlayingOrder +
        (EndingCriteria) + StoryList + @GameInitiationTime +
        GameStartTime + (GameEndTime)
+
 GameStatus:= [Initiating * GameInitiator is writing invitation and selecting Players
-    | Inviting * Invitations are being sent and Answers awaited.
-    | Playing * All Invitations has been accepted or
-          * GameInitiator forcibly has started the game
-    | Ending * Ending criteria has been fullfilled, but incomplete parts
-    are being written still.
-    | Viewing * ]
+    |Inviting * Invitations are being sent and Answers awaited.
+    |Playing * All Invitations has been accepted or GameInitiator forcibly has started the game
+    |Ending * Ending criteria has been fullfilled, but incomplete parts are being written still.
+    |Viewing * ]
 
 GameInitiationTime:= * moment when GameInitiator sends has submitted
         the initiation information

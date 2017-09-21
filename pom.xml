@@ -225,7 +225,6 @@
                             <includes>.*</includes>
                             <includePrimaryKeys>true</includePrimaryKeys>
                             <includeForeignKeys>true</includeForeignKeys>
-                            <syntheticPrimaryKeys>public\.players_game\.(game|player|order_no)</syntheticPrimaryKeys>
                             <excludes>public.schema_version</excludes>
                             <inputSchema>public</inputSchema>
                             <outputSchemaToDefault>true</outputSchemaToDefault>
@@ -257,6 +256,7 @@
                 <executions>
                     <execution>
                         <id>Install Node and Yarn</id>
+                        <phase>none</phase>
                         <goals>
                             <goal>install-node-and-yarn</goal>
                         </goals>
@@ -264,6 +264,7 @@
 
                     <execution>
                         <id>yarn install</id>
+                        <phase>none</phase>
                         <goals>
                             <goal>yarn</goal>
                         </goals>
@@ -274,7 +275,8 @@
 
                     <execution>
                         <id>Frontend production build</id>
-                        <phase>package</phase>
+                        <!--<phase>package</phase>-->
+                        <phase>none</phase>
                         <goals>
                             <goal>yarn</goal>
                         </goals>
