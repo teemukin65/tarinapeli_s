@@ -255,18 +255,19 @@
                 <version>1.4</version>
                 <executions>
                     <execution>
-                        <id>Install Node and Yarn</id>
+                        <id>Install Node and Npm</id>
+                        <!--<phase>generate-resources</phase>-->
                         <phase>none</phase>
                         <goals>
-                            <goal>install-node-and-yarn</goal>
+                            <goal>install-node-and-npm</goal>
                         </goals>
                     </execution>
-
                     <execution>
-                        <id>yarn install</id>
+                        <id>npm install</id>
+                        <!--<phase>generate-resources</phase>-->
                         <phase>none</phase>
                         <goals>
-                            <goal>yarn</goal>
+                            <goal>npm</goal>
                         </goals>
                         <configuration>
                             <arguments>install</arguments>
@@ -275,10 +276,9 @@
 
                     <execution>
                         <id>Frontend production build</id>
-                        <!--<phase>package</phase>-->
-                        <phase>none</phase>
+                        <phase>deploy</phase>
                         <goals>
-                            <goal>yarn</goal>
+                            <goal>npm</goal>
                         </goals>
                         <configuration>
                             <arguments>run build</arguments>
@@ -286,8 +286,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <nodeVersion>v7.2.0</nodeVersion>
-                    <yarnVersion>v0.18.0</yarnVersion>
+                    <nodeVersion>v8.5.0</nodeVersion>
                     <installDirectory>target</installDirectory>
                     <workingDirectory>src/main/app</workingDirectory>
                 </configuration>
