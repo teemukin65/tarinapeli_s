@@ -27,6 +27,10 @@ public class Player implements IPlayer {
     @Size(max = 250)
     private String email;
 
+    @Column(name = "password", length = 60)
+    @Size(max = 60)
+    private String password;
+
     @Column(name = "nickname", length = 20)
     @Size(max = 20)
     private String nickname;

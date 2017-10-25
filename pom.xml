@@ -125,6 +125,16 @@
             <artifactId>properties-maven-plugin</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>0.7.4</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.7.0</version>
+        </dependency>
 
 
     </dependencies>
@@ -302,7 +312,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/classes</outputDirectory>
+                            <outputDirectory>${basedir}/target/classes/static</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>src/main/app/build/</directory>
