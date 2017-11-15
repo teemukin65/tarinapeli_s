@@ -2,10 +2,8 @@ package fi.teemukin65.hobby.tarinapeli.service;
 
 import fi.teemukin65.hobby.tarinapeli.dao.PlayerRepository;
 import fi.teemukin65.hobby.tarinapeli.domain.Player;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,14 +21,10 @@ import java.util.List;
 public class DefaultUserDetailsService implements UserDetailsService {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    @Autowired
     private PlayerRepository playerRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public DefaultUserDetailsService() {
-        super();
+    public DefaultUserDetailsService(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
     }
 
     @Override
@@ -46,7 +40,8 @@ public class DefaultUserDetailsService implements UserDetailsService {
                 throw new UsernameNotFoundException("No player found with username: " + email);
             }
 
-            User user = modelMapper.map(player, User.class);
+            User user = new User(player.getEmail(), player.getPassword(),
+                    authorityList);
             LOGGER.debug("player initially modelmapped to user:{}", user);
 
             return user;
