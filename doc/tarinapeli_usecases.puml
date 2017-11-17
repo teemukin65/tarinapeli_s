@@ -1,0 +1,27 @@
+@startuml
+
+usecase GI as " game initiation
+"
+actor :Game Initiator: as GAdmin
+
+Player <|-- GAdmin : is a
+GAdmin---> GI : register user(as gameadmin)
+GAdmin ---> GI : Initiate game
+Player --> GI : register user(as Player)
+Player --> GI: join game
+
+
+(GamePlay)
+Player --> GamePlay: Start story
+Player --> GamePlay: Continue story
+
+
+
+(Aftermath)
+
+GAdmin --> Aftermath: End game
+Player --> Aftermath: View stories
+
+
+
+@enduml
