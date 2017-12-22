@@ -40,7 +40,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
                 throw new UsernameNotFoundException("No player found with username: " + email);
             }
 
-            User user = new User(player.getEmail(), player.getPassword(),
+            User user = new User(player.getEmail().trim(), player.getPassword(),
                     authorityList);
             LOGGER.debug("player initially modelmapped to user:{}", user);
 

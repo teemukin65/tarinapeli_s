@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -13,6 +13,10 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+          <form action="http://localhost:9080/signin/facebook" method="post">
+              <h1>Please login</h1>
+              <button type="submit">Login</button>
+          </form>
       </div>
     );
   }

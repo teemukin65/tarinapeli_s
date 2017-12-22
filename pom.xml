@@ -64,7 +64,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-social-facebook</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -267,7 +270,7 @@
                     <execution>
                         <id>Install Node and Npm</id>
                         <!--<phase>generate-resources</phase>-->
-                        <phase>none</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
@@ -275,18 +278,18 @@
                     <execution>
                         <id>npm install</id>
                         <!--<phase>generate-resources</phase>-->
-                        <phase>none</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>install</arguments>
+                            <arguments>pack</arguments>
                         </configuration>
                     </execution>
 
                     <execution>
                         <id>Frontend production build</id>
-                        <phase>deploy</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -307,7 +310,7 @@
                 <executions>
                     <execution>
                         <id>Copy frontend production build to resources</id>
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>

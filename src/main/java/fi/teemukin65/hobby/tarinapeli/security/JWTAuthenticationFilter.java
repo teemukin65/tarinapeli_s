@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fi.teemukin65.hobby.tarinapeli.domain.Player;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,7 @@ import java.util.Date;
 import static fi.teemukin65.hobby.tarinapeli.security.SecurityConstants.*;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
     private AuthenticationManager authenticationManager;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -34,6 +37,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             Player playerCreds = new ObjectMapper()
                     .readValue(request.getInputStream(), Player.class);
+            LOGGER.debug("obtained playerCreds:{}", playerCreds);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             playerCreds.getEmail(),

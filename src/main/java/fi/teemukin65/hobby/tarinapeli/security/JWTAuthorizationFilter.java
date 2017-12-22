@@ -1,6 +1,8 @@
 package fi.teemukin65.hobby.tarinapeli.security;
 
 import io.jsonwebtoken.Jwts;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +22,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         super(authenticationManager);
     }
 
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -37,6 +41,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
+        LOGGER.debug("getAuthentication, token from request:{}", token);
         if (token != null) {
             String user = Jwts.parser()
                     .setSigningKey(SECRET)

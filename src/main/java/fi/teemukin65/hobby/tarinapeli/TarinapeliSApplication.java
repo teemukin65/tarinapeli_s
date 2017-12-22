@@ -8,6 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication
 @EntityScan( basePackages = "fi.teemukin65.hobby.tarinapeli.domain.tables.pojos")
 @PropertySource("classpath:application.properties")
+
 public class TarinapeliSApplication {
 
 	public static void main(String[] args) {
