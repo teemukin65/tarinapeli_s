@@ -1,13 +1,13 @@
 sudo: required
 services:
-- docker
+  - docker
 env:
   global:
     secure: MYaLJaItu4RTh9DZ8MjL6EqpJvsSlJHax+2qcXXx5mNR3VsNY76BI1NmFhrooLsEcyrmObTQ4dycf8NnRC8yTvbbI+m1XI4HqhBHSQPFgoE6ivI4v9u4nouzq8YVnsEby0bC2Xak2WFmIJIK3FP/RwGVTcekhKsOywLLshsKZTBkVJj3ViDFxpWukNuMtxPom0U9B2FDZN4P3pOTrL4xhLkeqc5o65puK+xBMInBTewHVVF6NXpet6UOwv2rZzyEI3TiaAsuWMVYojjFD0CgT7y7Hd6XXK+5gzHINdF27F4zwT0L+bp9sBLTweyE5Z8yHuSl9d9oPYdu4xfI9hfHMAlg7HFEow8mLNBJ1VyNwFExC0EuC4bOOM0gZBts5jnkAAXqydYZ4HL/8f9icVxNtZzl70joxh2IHYCcixNS8nUOyglPiQL9rQEUwDne/FZq9/CnIdgLZ6V055Pj/OTYQWC9CE2eMbn2Idt+ihxlftcFZz11aG6NF7fIiKclaEUW7YsB3ygNxV1ItyZ2TsK3HFkodXE5Ht0BNg4U6Ch3B0to0eJuBZgkB0qYOaqkIiA7P4c7mHBQml0046j2pH0EMrQ4ZwViQoONhdJRpB9kRYP9UvraVUdS6AA5e9o8uK4UizE95YKah7NMKgtzHJBFHK32fataU4Nh1nopn2fHP/c=
 language: java
 before_install:
-- openssl aes-256-cbc -K $encrypted_6f692e17bb0b_key -iv $encrypted_6f692e17bb0b_iv
-  -in .env.enc -out .env -d
-- docker-compose --version
-- docker-compose build db
-- docker-compose up -d  db
+  - openssl aes-256-cbc -K $encrypted_6f692e17bb0b_key -iv $encrypted_6f692e17bb0b_iv
+    -in .env.enc -out .env -d
+  - docker-compose --version
+  - docker-compose build db
+  - docker-compose up -d  db
