@@ -16,7 +16,7 @@ import javax.transaction.Transactional;
 
 @Service
 public class DefaultPlayerService implements PlayerService {
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(DefaultPlayerService.class);
 
     @Autowired
     PlayerRepository playerRepository;

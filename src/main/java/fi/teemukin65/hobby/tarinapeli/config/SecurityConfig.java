@@ -1,5 +1,7 @@
 package fi.teemukin65.hobby.tarinapeli.config;
 
+import fi.teemukin65.hobby.tarinapeli.security.JWTAuthenticationFilter;
+import fi.teemukin65.hobby.tarinapeli.security.JWTAuthorizationFilter;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,7 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authProvider());
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -63,9 +64,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/session/**").permitAll()
                 .antMatchers("/api/crud/**").authenticated()
                 .and()
-//                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-//                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+
+
                 .and()
                 .requestCache()
                 .requestCache(new NullRequestCache());

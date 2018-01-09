@@ -44,7 +44,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         LOGGER.debug("getAuthentication, token from request:{}", token);
         if (token != null) {
             String user = Jwts.parser()
-                    .setSigningKey(SECRET)
+                    .setSigningKey(SECRET.getBytes())
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody()
                     .getSubject();

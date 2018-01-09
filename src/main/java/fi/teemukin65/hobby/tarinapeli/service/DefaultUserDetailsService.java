@@ -19,7 +19,7 @@ import java.util.List;
 @Service("userDetailsService")
 @Transactional
 public class DefaultUserDetailsService implements UserDetailsService {
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(DefaultUserDetailsService.class);
 
     private PlayerRepository playerRepository;
 
