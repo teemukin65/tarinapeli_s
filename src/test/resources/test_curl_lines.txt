@@ -1,0 +1,27 @@
+
+
+curl -i -H "Content-Type: application/json" -X POST -d '{
+    "email": "admin1@i.i",
+    "password": "secret"
+}' http://localhost:9080/api/games/sign-up
+
+
+
+curl -i -H "Content-Type: application/json" -X POST -d '{
+    "email": "admin1@i.i",
+    "password": "secret"
+}' http://localhost:9080/login
+
+
+curl -H "Content-Type: application/json" \
+-H "Authorization: " \
+  http://localhost:9080/api/crud/player
+
+curl -i -H "Content-Type: application/json" -X POST -d '{
+  "email": "admin1@i.i",
+  "password": "secret"
+}' http://localhost:9080/signin/facebook
+
+curl -i -H "Content-Type: application/json" -X POST http://localhost:9080/signin/facebook
+
+

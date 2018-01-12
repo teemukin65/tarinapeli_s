@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.savedrequest.NullRequestCache;
 
-import static fi.teemukin65.hobby.tarinapeli.security.SecurityConstants.SIGN_UP_URL;
+import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.*;
 
 /**
  * Created by teemu on 17.3.2017.
@@ -59,10 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-                .antMatchers("/login*", "/signin/**", "/signup/**").permitAll()
+                .antMatchers(LOGIN_URL.concat("/**")).permitAll()
                 .antMatchers("/index.html", "/css/**", "/js/**", "/media/**").permitAll()
                 .antMatchers("/api/session/**").permitAll()
-                .antMatchers("/api/crud/**").authenticated()
+                .antMatchers("/api/crud/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers(GAME_ROOT_URL.concat("/**")).authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))

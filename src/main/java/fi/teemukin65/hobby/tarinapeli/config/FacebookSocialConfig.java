@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 @EnableSocial
 public class FacebookSocialConfig extends SocialConfigurerAdapter {
 
-    final
+    private final
     DataSource dataSource;
 
     @Autowired

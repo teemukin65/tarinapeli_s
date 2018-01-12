@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.GAME_ROOT_URL;
+
 @RestController
-@RequestMapping(path = "/game")
+@RequestMapping(path = GAME_ROOT_URL)
 public class GameController {
 
     @Autowired

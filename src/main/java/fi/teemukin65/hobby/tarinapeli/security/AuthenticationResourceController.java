@@ -16,10 +16,10 @@ import java.security.Principal;
 @RequestMapping("/api/session")
 public class AuthenticationResourceController {
 
-    final
+    private final
     UserDetailsService userDetailsService;
 
-    final
+    private final
     AuthenticationManager authenticationManager;
 
     @Autowired

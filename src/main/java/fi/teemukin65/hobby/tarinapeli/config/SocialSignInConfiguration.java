@@ -10,7 +10,7 @@ import org.springframework.social.connect.web.SignInAdapter;
 
 @Configuration
 public class SocialSignInConfiguration {
-    protected static final Logger log = LoggerFactory.getLogger(SocialSignInConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(SocialSignInConfiguration.class);
 
     @Bean
     public SignInAdapter authSignInAdapter() {
