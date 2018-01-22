@@ -1,6 +1,7 @@
 package fi.teemukin65.hobby;
 
 import fi.teemukin65.hobby.tarinapeli.TarinapeliSApplication;
+import fi.teemukin65.hobby.tarinapeli.config.GamePathConstants;
 import fi.teemukin65.hobby.tarinapeli.rest.dto.PlayerDto;
 import fi.teemukin65.hobby.tarinapeli.rest.dto.PlayerRegistrationDto;
 import org.junit.Test;
@@ -47,13 +48,16 @@ public class TarinapeliSApplicationTests {
         PlayerRegistrationDto registrationDto = new PlayerRegistrationDto();
         String email = "test" + testPersonId.toString() + "@" + "example.com";
         registrationDto.setEmail(email);
-        registrationDto.setPassword("secret4test!");
+        registrationDto.setPassword("secret");
         HttpEntity<PlayerRegistrationDto> request = new HttpEntity<>(registrationDto);
 
-        PlayerDto body = this.restTemplate.postForObject("/game/player/sign-up", request, PlayerDto.class);
+        PlayerDto body = this.restTemplate.postForObject(GamePathConstants.SIGN_UP_URL, request, PlayerDto.class);
         assertThat(body.getEmail()).isEqualTo(email);
-//		this.restTemplate.getForEntity("/api/crud/player/"+body.get)
-
+        PlayerDto foundPlayer = this.restTemplate.getForObject(
+                "/api/players/".concat(body.getPlayerId().toString()),
+                PlayerDto.class);
+        logger.debug("foundPlayer: {}", foundPlayer);
+        assertThat(body.getEmail()).isEqualToIgnoringCase(foundPlayer.getEmail());
     }
 
 }

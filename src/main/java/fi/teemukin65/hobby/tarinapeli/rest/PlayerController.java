@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.GAME_ROOT_URL;
+import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.PLAYER_URL;
 
 @RestController
 @RequestMapping(path = GAME_ROOT_URL)
@@ -23,7 +24,7 @@ public class PlayerController {
     PlayerService playerService;
 
     @RequestMapping(
-            path = "players/sign-up",
+            path = PLAYER_URL + "/sign-up",
             method = RequestMethod.POST,
             consumes = "application/json",
             produces = "application/json"

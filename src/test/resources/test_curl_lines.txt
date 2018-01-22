@@ -25,3 +25,10 @@ curl -i -H "Content-Type: application/json" -X POST -d '{
 curl -i -H "Content-Type: application/json" -X POST http://localhost:9080/signin/facebook
 
 
+curl -i -H "Content-Type: application/json" -X POST -d '{ \
+    "gameTitle": "testi Otsikko", \
+    "players": [ "secret@plyawer.fi", "second@player.org"] \
+}' -H "Authorization: " \
+http://localhost:9080/games
+
+

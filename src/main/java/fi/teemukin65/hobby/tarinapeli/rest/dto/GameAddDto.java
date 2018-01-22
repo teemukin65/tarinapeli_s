@@ -23,6 +23,7 @@ public class GameAddDto {
 
     @NonNull
     @NotNull
+    @Length(min = 2, message = "At least 2 players")
     @Email
     private List<String> players;
 

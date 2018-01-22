@@ -15,6 +15,10 @@ public class PlayerDto {
     @Length(max = 250, min = 3)
     private String email;
 
+    @NonNull
+    @NotNull
+    private Long playerId;
+
     @Length(max = 20)
     private String nickName;
 
