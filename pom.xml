@@ -275,7 +275,7 @@
                     <execution>
                         <id>Install Node and Npm</id>
                         <!--<phase>generate-resources</phase>-->
-                        <phase>install</phase>
+                        <phase>none</phase>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
@@ -294,7 +294,7 @@
 
                     <execution>
                         <id>Frontend production build</id>
-                        <phase>install</phase>
+                        <phase>none</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
