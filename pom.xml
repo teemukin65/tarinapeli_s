@@ -283,7 +283,7 @@
                     <execution>
                         <id>npm install</id>
                         <!--<phase>generate-resources</phase>-->
-                        <phase>install</phase>
+                        <phase>none</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
