@@ -2,6 +2,8 @@ package fi.teemukin65.hobby.tarinapeli.domain;
 
 import fi.teemukin65.hobby.tarinapeli.query.tables.interfaces.IGame;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -9,11 +11,13 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "game")
 @Data
+@NoArgsConstructor
 public class Game implements IGame {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_id", unique = true, nullable = false, precision = 32)
+    @NonNull
     private Integer gameId;
 
     @Column(name = "game_initiation_time",
@@ -21,6 +25,7 @@ public class Game implements IGame {
     private Timestamp gameInitiationTime;
 
     @Column(name = "game_initiator", nullable = false, precision = 32)
+    @NonNull
     private Integer gameInitiator;
 
     @Column(name = "game_status")

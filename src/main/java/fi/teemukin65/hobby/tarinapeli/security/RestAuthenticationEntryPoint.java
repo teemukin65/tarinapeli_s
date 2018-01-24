@@ -22,6 +22,8 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         LOGGER.warn("restAuthenticationEntryPoint -  request url:{} commence exception:,{}",
                 request.getRequestURI(),
                 authException.getMessage());
+        // TODO: add error per RFC-6750
+        response.addHeader("WWW-Authenticate", "Bearer realm=\"Tarinapeli\" charset=\"UTF-8\"");
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 
     }

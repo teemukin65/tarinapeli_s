@@ -1,7 +1,7 @@
 package fi.teemukin65.hobby.tarinapeli.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fi.teemukin65.hobby.tarinapeli.domain.Player;
+import fi.teemukin65.hobby.tarinapeli.rest.dto.PlayerLoginDto;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
@@ -36,9 +36,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
         try {
-            Player playerCreds = new ObjectMapper()
-                    .readValue(request.getInputStream(), Player.class);
+            PlayerLoginDto playerCreds = new ObjectMapper()
+                    .readValue(request.getInputStream(), PlayerLoginDto.class);
             LOGGER.debug("obtained playerCreds:{}", playerCreds);
+            // TODO: authorities...
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             playerCreds.getEmail(),

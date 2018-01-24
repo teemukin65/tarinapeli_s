@@ -1,15 +1,17 @@
 package fi.teemukin65.hobby.tarinapeli.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Data
+@NoArgsConstructor
 
 @Embeddable
-public class PlayersGamePk implements Serializable {
+class PlayersGamePk implements Serializable {
 
     private Integer game;
     private Integer player;

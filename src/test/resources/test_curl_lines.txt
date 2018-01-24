@@ -28,7 +28,7 @@ curl -i -H "Content-Type: application/json" -X POST http://localhost:9080/signin
 curl -i -H "Content-Type: application/json" -X POST -d '{ \
     "gameTitle": "testi Otsikko", \
     "players": [ "secret@plyawer.fi", "second@player.org"] \
-}' -H "Authorization: " \
-http://localhost:9080/games
+}' -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjFAaS5pIiwiZXhwIjoxNTE3NTc1ODkwfQ.894aXUW1tWGMPuGn2d18rbqD1PoHR4cpLTnLzZHWqsnH3tzimf8Fx0RuhsoNS7FXOBCqBNBsAKNd__Grh5gm8A" \
+http://localhost:9080/api/games
 
 

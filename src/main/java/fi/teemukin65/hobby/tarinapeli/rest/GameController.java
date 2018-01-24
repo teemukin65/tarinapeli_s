@@ -23,9 +23,10 @@ public class GameController {
     @Autowired
     GameService gameService;
 
-    @GetMapping
+    @RequestMapping(method = RequestMethod.GET)
     List<GameDto> listGames(Principal user) {
 
+        LOGGER.debug("listGames, user:{}", user.getName());
         return gameService.listUserGames(user);
     }
 

@@ -16,7 +16,7 @@ import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.GAME_ROOT_
 import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.PLAYER_URL;
 
 @RestController
-@RequestMapping(path = GAME_ROOT_URL)
+@RequestMapping(path = GAME_ROOT_URL + PLAYER_URL)
 public class PlayerController {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
@@ -24,7 +24,7 @@ public class PlayerController {
     PlayerService playerService;
 
     @RequestMapping(
-            path = PLAYER_URL + "/sign-up",
+            path = "/sign-up",
             method = RequestMethod.POST,
             consumes = "application/json",
             produces = "application/json"

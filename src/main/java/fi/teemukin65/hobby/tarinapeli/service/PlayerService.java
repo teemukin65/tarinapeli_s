@@ -7,4 +7,5 @@ import fi.teemukin65.hobby.tarinapeli.rest.dto.PlayerRegistrationDto;
 public interface PlayerService {
 
     PlayerDto registerPlayer(PlayerRegistrationDto registrationDto) throws EmailExistException;
+
 }
