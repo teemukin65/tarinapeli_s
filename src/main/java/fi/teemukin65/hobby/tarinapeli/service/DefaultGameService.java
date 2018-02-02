@@ -10,8 +10,10 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.List;
 
 @Service
 public class DefaultGameService implements GameService {
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(DefaultGameService.class);
 
     private GameRepository gameRepository;
 
@@ -53,13 +55,18 @@ public class DefaultGameService implements GameService {
 
     @Override
     @Transactional
-    public GameDto addGame(GameAddDto gameInfo, Principal initiator) {
+    public GameDto addGame(@Valid GameAddDto gameInfo, Principal initiator) {
         Game newGame = new Game();
         newGame.setGameInitiationTime(new Timestamp(System.currentTimeMillis()));
         newGame.setGameTitle(gameInfo.getGameTitle());
         newGame.setGameDescription(gameInfo.getGameDescription().trim());
         Player initiatingPlayer = playerRepository.findByEmail(initiator.getName().trim());
         newGame.setGameInitiator(initiatingPlayer.getId());
+
+        if (!gameInfo.getPlayers().isEmpty()) {
+            LOGGER.info("players {} included in creation message  ", gameInfo.getPlayers());
+            throw new NotImplementedException();
+        }
         return modelMapper.map(gameRepository.save(newGame), GameDto.class);
     }
 

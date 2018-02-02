@@ -18,8 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.savedrequest.NullRequestCache;
 
-import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.LOGIN_URL;
-import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.SIGN_UP_URL;
+import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.*;
 
 /**
  * Created by teemu on 17.3.2017.
@@ -78,7 +77,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html", "/css/**", "/js/**", "/media/**").permitAll()
                 .antMatchers("/api/session/**").permitAll()
                 .anyRequest().authenticated()
-                .antMatchers("/api/crud/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/api/crud/**").hasRole("ADMIN")
+                .antMatchers(GAME_ROOT_URL.concat("/**")).hasRole("PLAYER")
                 .and()
                 .requestCache()
                 .requestCache(new NullRequestCache());

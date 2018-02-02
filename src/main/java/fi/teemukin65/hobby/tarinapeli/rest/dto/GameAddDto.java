@@ -21,9 +21,6 @@ public class GameAddDto {
     @Length(max = 160)
     private String gameDescription;
 
-    @NonNull
-    @NotNull
-    @Length(min = 2, message = "At least 2 players")
     @Email
     private List<String> players;
 

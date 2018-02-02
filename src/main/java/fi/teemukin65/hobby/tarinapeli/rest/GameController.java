@@ -16,7 +16,11 @@ import java.util.List;
 import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.GAME_ROOT_URL;
 
 @RestController
-@RequestMapping(path = GAME_ROOT_URL)
+@RequestMapping(
+        path = GAME_ROOT_URL,
+        produces = "application/json; charset=UTF-8",
+        consumes = "application/json; charset=UTF-8"
+)
 public class GameController {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
