@@ -3,7 +3,6 @@ package fi.teemukin65.hobby.tarinapeli.rest.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -21,7 +20,7 @@ public class GameAddDto {
     @Length(max = 160)
     private String gameDescription;
 
-    @Email
+    // TODO: Validators?
     private List<String> players;
 
 }

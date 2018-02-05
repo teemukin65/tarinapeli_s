@@ -59,11 +59,17 @@ public class DefaultGameService implements GameService {
         Game newGame = new Game();
         newGame.setGameInitiationTime(new Timestamp(System.currentTimeMillis()));
         newGame.setGameTitle(gameInfo.getGameTitle());
-        newGame.setGameDescription(gameInfo.getGameDescription().trim());
+        if (gameInfo.getGameDescription() != null) {
+            newGame.setGameDescription(gameInfo.getGameDescription().trim());
+        }
+
         Player initiatingPlayer = playerRepository.findByEmail(initiator.getName().trim());
         newGame.setGameInitiator(initiatingPlayer.getId());
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(initiatingPlayer);
 
-        if (!gameInfo.getPlayers().isEmpty()) {
+
+        if (gameInfo.getPlayers() != null && !gameInfo.getPlayers().isEmpty()) {
             LOGGER.info("players {} included in creation message  ", gameInfo.getPlayers());
             throw new NotImplementedException();
         }

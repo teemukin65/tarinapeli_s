@@ -2,6 +2,7 @@ package fi.teemukin65.hobby;
 
 import fi.teemukin65.hobby.tarinapeli.TarinapeliSApplication;
 import fi.teemukin65.hobby.tarinapeli.config.GamePathConstants;
+import fi.teemukin65.hobby.tarinapeli.domain.GameStatus;
 import fi.teemukin65.hobby.tarinapeli.rest.dto.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Arrays;
 
 import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.GAME_ROOT_URL;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -69,9 +68,10 @@ public class TarinapeliSApplicationTests {
         HttpHeaders authorizatioHeader = new HttpHeaders();
         authorizatioHeader.add(HttpHeaders.AUTHORIZATION, authorizationToken);
         authorizatioHeader.setContentType(MediaType.APPLICATION_JSON);
+        // new game
         GameAddDto newGameDto = new GameAddDto();
-        newGameDto.setGameTitle("Uusi testi Peli");
-        newGameDto.setPlayers(Arrays.<String>asList(new String[]{"first@a.com", "second@a.com"}));
+        String testTitle = "Uusi testi Peli";
+        newGameDto.setGameTitle(testTitle);
         HttpEntity<GameAddDto> gameCreateRequest = new HttpEntity<>(newGameDto, authorizatioHeader);
 
         ResponseEntity<GameDto> createdGame = this.restTemplate.exchange(
@@ -79,6 +79,9 @@ public class TarinapeliSApplicationTests {
                 HttpMethod.POST,
                 gameCreateRequest, GameDto.class);
         logger.debug("foundGame: {}", createdGame);
+        assertThat(createdGame.getBody().getGameTitle()).isEqualTo(testTitle);
+        assertThat(createdGame.getBody().getGameStatus()).isEqualTo(GameStatus.INITIATING);
+        assertThat(createdGame.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
     }
 
