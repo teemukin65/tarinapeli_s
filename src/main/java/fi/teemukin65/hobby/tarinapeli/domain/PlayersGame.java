@@ -3,7 +3,6 @@ package fi.teemukin65.hobby.tarinapeli.domain;
 import fi.teemukin65.hobby.tarinapeli.query.tables.interfaces.IPlayersGame;
 import lombok.Data;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,14 +10,16 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Data
-@RequiredArgsConstructor
 @Entity
 @Table(name = "players_game", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"game", "player", "order_no"})
 })
 public class PlayersGame implements IPlayersGame, Serializable {
 
+    public static final int INITIATING_PLAYER_ORDER_NO = 1;
+
     @Id
+    @EmbeddedId
     private PlayersGamePk playersGamePk;
 
     @Column(name = "player_status", length = 10)

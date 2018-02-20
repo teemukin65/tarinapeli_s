@@ -7,18 +7,19 @@ import fi.teemukin65.hobby.tarinapeli.service.PlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.GAME_ROOT_URL;
 import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.PLAYER_URL;
 
-@RestController
+@Controller
 @RequestMapping(path = GAME_ROOT_URL + PLAYER_URL)
-public class PlayerController {
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+public class PlayerRegistrationController {
+    private final Logger LOGGER = LoggerFactory.getLogger(PlayerRegistrationController.class);
 
     @Autowired
     PlayerService playerService;
@@ -29,6 +30,7 @@ public class PlayerController {
             consumes = "application/json",
             produces = "application/json"
     )
+    @ResponseBody
     public PlayerDto savePlayer(@RequestBody PlayerRegistrationDto registrationDto) throws EmailExistException {
         LOGGER.info("registerPlayer, called with Dto: {}", registrationDto);
         return playerService.registerPlayer(registrationDto);

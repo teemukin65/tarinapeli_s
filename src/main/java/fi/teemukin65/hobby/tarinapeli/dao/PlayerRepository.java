@@ -5,10 +5,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Optional;
+
 @Repository()
 @RequestMapping(path = "/api/")
 public interface PlayerRepository extends CrudRepository<Player, Integer>{
-    Player findByEmail(String email);
-
+    Optional<Player> findByEmail(String email);
     int countPlayerByEmail(String email);
+
 }

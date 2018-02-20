@@ -4,6 +4,7 @@ import fi.teemukin65.hobby.tarinapeli.TarinapeliSApplication;
 import fi.teemukin65.hobby.tarinapeli.config.GamePathConstants;
 import fi.teemukin65.hobby.tarinapeli.domain.GameStatus;
 import fi.teemukin65.hobby.tarinapeli.rest.dto.*;
+import org.jooq.impl.DefaultDSLContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -33,6 +34,9 @@ public class TarinapeliSApplicationTests {
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    @Autowired
+    private DefaultDSLContext dslContext;
 
     @Value("${random.int}")
     Integer testPersonId;

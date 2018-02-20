@@ -1,5 +1,6 @@
 package fi.teemukin65.hobby.tarinapeli.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,9 +10,10 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 
 @Embeddable
-class PlayersGamePk implements Serializable {
+public class PlayersGamePk implements Serializable {
 
     private Integer game;
     private Integer player;
