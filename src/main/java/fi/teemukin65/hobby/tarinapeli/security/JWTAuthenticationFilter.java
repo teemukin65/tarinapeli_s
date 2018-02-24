@@ -1,6 +1,7 @@
 package fi.teemukin65.hobby.tarinapeli.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fi.teemukin65.hobby.tarinapeli.config.GamePathConstants;
 import fi.teemukin65.hobby.tarinapeli.rest.dto.PlayerLoginDto;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,6 +30,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         super();
+        this.setFilterProcessesUrl(GamePathConstants.LOGIN_URL);
         this.authenticationManager = authenticationManager;
     }
 
