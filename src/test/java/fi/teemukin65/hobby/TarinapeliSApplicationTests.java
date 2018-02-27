@@ -65,7 +65,7 @@ public class TarinapeliSApplicationTests {
         jsonContentType.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<PlayerLoginDto> loginRequest = new HttpEntity<>(loginDto, jsonContentType);
         HttpEntity<Object> loggedIn = this.restTemplate.postForEntity(
-                "/login",
+                GamePathConstants.LOGIN_URL,
                 loginRequest,
                 Object.class);
         authorizationToken = loggedIn.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
@@ -86,6 +86,15 @@ public class TarinapeliSApplicationTests {
         assertThat(createdGame.getBody().getGameTitle()).isEqualTo(testTitle);
         assertThat(createdGame.getBody().getGameStatus()).isEqualTo(GameStatus.INITIATING);
         assertThat(createdGame.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+
+//        // Add players
+//        HttpEntity<Object> gamePlayersGetRequest = new HttpEntity(authorizatioHeader);
+//        ResponseEntity<List<GamePlayerDto>> initialPlayers = this.restTemplate.exchange(
+//                GAME_ROOT_URL+"/"+createdGame.getBody().getGameId().toString()+ PLAYER_URL,
+//                HttpMethod.GET,
+//                gamePlayersGetRequest, new ParameterizedTypeReference<List<GamePlayerDto>>(){} );
+//
+
 
     }
 
