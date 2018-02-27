@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.GAME_ROOT_URL;
-import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.PLAYER_URL;
+import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.SIGN_UP_URL;
 
 @Controller
-@RequestMapping(path = GAME_ROOT_URL + PLAYER_URL)
 public class PlayerRegistrationController {
     private final Logger LOGGER = LoggerFactory.getLogger(PlayerRegistrationController.class);
 
@@ -25,7 +23,7 @@ public class PlayerRegistrationController {
     PlayerService playerService;
 
     @RequestMapping(
-            path = "/sign-up",
+            path = SIGN_UP_URL,
             method = RequestMethod.POST,
             consumes = "application/json",
             produces = "application/json"
