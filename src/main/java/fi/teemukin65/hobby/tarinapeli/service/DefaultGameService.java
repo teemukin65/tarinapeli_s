@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -21,7 +20,7 @@ import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultGameService implements GameService {
@@ -91,7 +90,7 @@ public class DefaultGameService implements GameService {
 
         if (gameInfo.getPlayers() != null && !gameInfo.getPlayers().isEmpty()) {
             LOGGER.info("players {} included in creation message  ", gameInfo.getPlayers());
-            throw new NotImplementedException();
+            throw new RuntimeException("NOT IMPLEMENTED!");
         }
         return modelMapper.map(gameEntity, GameDto.class);
     }
@@ -102,28 +101,56 @@ public class DefaultGameService implements GameService {
     }
 
     @Override
+    @Transactional
     public List<GamePlayerDto> addPlayer(String gameId, ValidList<GamePlayerAddDto> gamePlayerAddDtos) {
         LOGGER.debug("called with gameid: {}, with players:{}", gameId, gamePlayerAddDtos
         );
         Game game = gameRepository.findOne(Integer.valueOf(gameId.trim()));
+        // TODO: Check if there are already players added to the Game
+        List<PlayersGame> existingGamePlayers = playersGameRepository.findByPlayersGamePk_Game(game.getGameId());
+        List<PlayersGame> newGamePlayers = new ArrayList<PlayersGame>();
+        List<GamePlayerDto> gamePlayerDtosToReturn = new ArrayList<>();
+        Integer orderNo = existingGamePlayers.size() + 1;
 
         for (GamePlayerAddDto playerToAdd : gamePlayerAddDtos) {
-            Optional<Player> optionalPlayer = playerRepository.findByEmail(playerToAdd.getEmail());
-            if (!optionalPlayer.isPresent()) {
+            String playerEmail = playerToAdd.getEmail();
+            Player player = playerRepository.findByEmail(playerEmail)
+                    .orElseGet(() -> {
+                        Player passivePlayer = new Player(playerEmail);
+                        passivePlayer.setActive(false);
 
-                // TODO: add new player with invited -status + add to optionalPlayer
+                        return playerRepository.save(passivePlayer);
+                    });
 
-            }
+            PlayersGamePk playersGamePk = new PlayersGamePk(game.getGameId(), player.getId(), orderNo);
+            PlayersGame playersGameToAdd = new PlayersGame();
+            playersGameToAdd.setPlayersGamePk(playersGamePk);
+            // TODO: Java enum type for gameplayer statuses
+            playersGameToAdd.setPlayerStatus("ADDED");
 
-            // TODO: create PlayersGame entry
-
-
+            orderNo = orderNo + 1;
         }
-        return null;
+        return newGamePlayers.stream()
+                .map(entity -> modelMapper.map(entity, GamePlayerDto.class))
+                .collect(Collectors.toList());
+
+
     }
+
+    ;
 
     @Override
     public List<GamePlayerDto> getGamePlayers(String gameId) {
-        return null;
+        List<PlayersGame> playersGames = playersGameRepository.findByPlayersGamePk_Game(Integer.valueOf(gameId));
+        LOGGER.debug("getGamePlayers, playersGame entities found:{}", playersGames);
+        return playersGames.stream()
+                .map(playersGame -> {
+
+                    LOGGER.debug("mapping: {}", playersGame);
+                    GamePlayerDto playersGameMapped = modelMapper.map(playersGame, GamePlayerDto.class);
+                    LOGGER.debug("succeeded to:", playersGameMapped);
+                    return playersGameMapped;
+                })
+                .collect(Collectors.toList());
     }
 }

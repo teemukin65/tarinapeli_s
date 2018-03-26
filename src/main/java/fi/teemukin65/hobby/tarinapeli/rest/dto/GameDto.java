@@ -4,11 +4,12 @@ import fi.teemukin65.hobby.tarinapeli.domain.GameStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
-public class GameDto {
+public class GameDto implements Serializable {
     private Integer gameId;
 
     private Timestamp gameInitiationTime;

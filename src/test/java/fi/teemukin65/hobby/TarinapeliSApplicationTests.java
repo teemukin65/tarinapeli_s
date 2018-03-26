@@ -14,10 +14,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.GAME_ROOT_URL;
+import static fi.teemukin65.hobby.tarinapeli.config.GamePathConstants.PLAYER_URL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -87,13 +91,19 @@ public class TarinapeliSApplicationTests {
         assertThat(createdGame.getBody().getGameStatus()).isEqualTo(GameStatus.INITIATING);
         assertThat(createdGame.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
-//        // Add players
-//        HttpEntity<Object> gamePlayersGetRequest = new HttpEntity(authorizatioHeader);
-//        ResponseEntity<List<GamePlayerDto>> initialPlayers = this.restTemplate.exchange(
-//                GAME_ROOT_URL+"/"+createdGame.getBody().getGameId().toString()+ PLAYER_URL,
-//                HttpMethod.GET,
-//                gamePlayersGetRequest, new ParameterizedTypeReference<List<GamePlayerDto>>(){} );
-//
+
+        HttpEntity<Object> gamePlayersGetRequest = new HttpEntity(authorizatioHeader);
+        ResponseEntity<List<GamePlayerDto>> initialPlayers = this.restTemplate.exchange(
+                GAME_ROOT_URL + "/" +
+                        createdGame.getBody().getGameId().toString() + PLAYER_URL,
+                HttpMethod.GET,
+                gamePlayersGetRequest, new ParameterizedTypeReference<List<GamePlayerDto>>() {
+                }
+        );
+        assertThat(initialPlayers.getBody().size()).isEqualTo(1);
+
+
+
 
 
     }

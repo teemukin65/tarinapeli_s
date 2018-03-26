@@ -40,7 +40,9 @@ PlayingTime : After that time has elapsed from GameStartingTime no
        * Storystatus moves to Reading and
 
 
-PlayerStatus:= [Invited * invitation message sent
+PlayerStatus:= [
+ Added * Player added to player list
+|Invited * invitation message sent
 |Joining * invitation link followed, nickname not confirmed/skipped
 |Waiting * Nickname view passed, game not yet started
 |Playing * Game started

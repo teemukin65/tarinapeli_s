@@ -35,8 +35,9 @@ public class GamePlayerController {
     )
     public List<GamePlayerDto> addPlayerToGame(
             @RequestBody ValidList<GamePlayerAddDto> gamePlayerAddDtos,
-            @PathVariable String gameId) throws EmailExistException {
+            @PathVariable(required = true, name = "gameId") String gameId) throws EmailExistException {
         LOGGER.info("addPlayerToGame, called with Dto: {}", gamePlayerAddDtos);
+
         return gameService.addPlayer(gameId, gamePlayerAddDtos);
     }
 
@@ -45,7 +46,9 @@ public class GamePlayerController {
             consumes = "application/json",
             produces = "application/json"
     )
-    public List<GamePlayerDto> getGamePlayers(@PathVariable String gameId, Principal user) {
+    public List<GamePlayerDto> getGamePlayers(
+            @PathVariable(required = true, name = "gameId") String gameId,
+            Principal user) {
         LOGGER.info("getGamePlayers, called for game:{}", gameId);
         //TODO: gameId validation
         return gameService.getGamePlayers(gameId);

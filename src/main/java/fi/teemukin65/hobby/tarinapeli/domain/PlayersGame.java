@@ -1,5 +1,6 @@
 package fi.teemukin65.hobby.tarinapeli.domain;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import fi.teemukin65.hobby.tarinapeli.query.tables.interfaces.IPlayersGame;
 import lombok.Data;
 import lombok.NonNull;
@@ -20,7 +21,8 @@ public class PlayersGame implements IPlayersGame, Serializable {
 
     @Id
     @EmbeddedId
-    private PlayersGamePk playersGamePk;
+    @JsonUnwrapped
+    private PlayersGamePk playersGamePk = new PlayersGamePk();
 
     @Column(name = "player_status", length = 10)
     @Size(max = 10)
@@ -34,6 +36,7 @@ public class PlayersGame implements IPlayersGame, Serializable {
             fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
+    @JoinColumn(name = "gameId")
     public Integer getGame() {
         return getPlayersGamePk().getGame();
     }
@@ -41,6 +44,7 @@ public class PlayersGame implements IPlayersGame, Serializable {
     public void setGame(Integer value) {
         getPlayersGamePk().setGame(value);
     }
+
 
     @Column(name = "player", nullable = false, precision = 32)
     @NotNull
