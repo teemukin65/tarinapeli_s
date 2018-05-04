@@ -35,6 +35,7 @@ import java.util.List;
 @PropertySource("classpath:application.properties")
 public class PersistenceContextConfig
 {
+    //    private final Logger LOGGER = LoggerFactory.getLogger(PersistenceContextConfig.class);
     private final Environment env;
 
     @Autowired

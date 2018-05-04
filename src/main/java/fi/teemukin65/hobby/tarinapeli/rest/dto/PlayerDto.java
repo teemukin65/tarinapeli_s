@@ -17,7 +17,7 @@ public class PlayerDto {
 
     @NonNull
     @NotNull
-    private Long playerId;
+    private int playerId;
 
     @Length(max = 20)
     private String nickName;

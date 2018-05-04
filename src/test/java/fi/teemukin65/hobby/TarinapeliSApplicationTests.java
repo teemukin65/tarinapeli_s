@@ -60,8 +60,8 @@ public class TarinapeliSApplicationTests {
         registrationDto.setPassword("secret");
         HttpEntity<PlayerRegistrationDto> request = new HttpEntity<>(registrationDto);
 
-        PlayerDto body = this.restTemplate.postForObject(GamePathConstants.SIGN_UP_URL, request, PlayerDto.class);
-        assertThat(body.getEmail()).isEqualTo(email);
+        PlayerDto gameInitiatorPlayerDto = this.restTemplate.postForObject(GamePathConstants.SIGN_UP_URL, request, PlayerDto.class);
+        assertThat(gameInitiatorPlayerDto.getEmail()).isEqualTo(email);
         // Login
         String authorizationToken;
         PlayerLoginDto loginDto = new PlayerLoginDto(registrationDto.getEmail(), registrationDto.getPassword());
@@ -101,6 +101,8 @@ public class TarinapeliSApplicationTests {
                 }
         );
         assertThat(initialPlayers.getBody().size()).isEqualTo(1);
+        assertThat(initialPlayers.getBody().get(0).getPlayer()).isEqualTo(
+                (gameInitiatorPlayerDto.getPlayerId()));
 
 
 
