@@ -1,6 +1,7 @@
 package fi.teemukin65.hobby.tarinapeli.rest.dto;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import java.util.List;
 
@@ -11,10 +12,12 @@ public class RestErrorBodyDto {
     private String description;
     private List<FieldError> errors;
 
-    private class FieldError {
-        private Integer code;
-        private String field;
-        private String message;
+    @Data
+    public static class FieldError {
+        final private Integer code;
+        @NonNull
+        final private String field;
+        final private String message;
     }
 
 }
