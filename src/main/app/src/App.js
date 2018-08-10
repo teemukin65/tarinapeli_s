@@ -1,7 +1,7 @@
-import React, {Component, PropTypes} from 'react'
-import {Field, Form} from 'react-final-form'
+import React, {Component} from 'react'
 import logo from './logo.svg'
 import './App.css'
+import RegisterPlayerForm from "./components/registerPlayerForm"
 
 export class App extends Component {
   render() {
@@ -19,34 +19,8 @@ export class App extends Component {
 
         Tee tunnus, niin voit päästä mukaan pelaamaan..
 
-        <Form
-          onSubmit={this.props.onRegisterPress}
-          render={({handleSubmit, pristine, invalid}) => (
-            <form onSubmit={handleSubmit}>
+        <RegisterPlayerForm onSubmit={this.props.onRegisterPress}/>
 
-              <h2>Rekisteröidy tarinapelejä varten </h2>
-              <div>
-                <label>Taiteilijanimi</label>
-                <Field name='nickName' component='input' placeholder='Unto Uneksija'/>
-              </div>
-
-
-              <div>
-                <label>Sähköpostiosoite*</label>
-                <Field name='email' component='input' placeholder='matti@virtanen.example.fi'/>
-              </div>
-              <div>
-                <label>Salasana*</label>
-                <Field name='password' component='input' type='password' placeholder='matti@virtanen.example.fi'/>
-              </div>
-
-              <button type='submit' disabled={pristine || invalid}>
-                Submit
-              </button>
-            </form>
-
-          )}
-        />
       </div>
     );
   }
@@ -54,8 +28,9 @@ export class App extends Component {
 
 
 App.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.string
+  isAuthenticated: React.PropTypes.bool.isRequired,
+  errorMessage: React.PropTypes.string,
+
 }
 
 
