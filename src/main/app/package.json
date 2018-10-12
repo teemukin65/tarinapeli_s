@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "final-form": "^4.8.0",
-    "prop-types": "^15.6.1",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-final-form": "^3.6.0",
+    "final-form": "^4.10.0",
+    "prop-types": "^15.6.2",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-final-form": "^3.6.5",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"
