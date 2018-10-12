@@ -7,6 +7,8 @@ import org.jooq.impl.DefaultConfiguration;
 import org.jooq.impl.DefaultDSLContext;
 import org.jooq.impl.DefaultExecuteListenerProvider;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +37,7 @@ import java.util.List;
 @PropertySource("classpath:application.properties")
 public class PersistenceContextConfig
 {
-    //    private final Logger LOGGER = LoggerFactory.getLogger(PersistenceContextConfig.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(PersistenceContextConfig.class);
     private final Environment env;
 
     @Autowired
@@ -49,6 +51,10 @@ public class PersistenceContextConfig
     public DataSource dataSource(){
         HikariDataSource hikariDataSource = new HikariDataSource();
         hikariDataSource.setDriverClassName(env.getRequiredProperty("spring.datasource.driver-class-name"));
+        LOGGER.info("Creating hikariDataSource with url:{} for user:{}",
+                env.getRequiredProperty("spring.datasource.url"),
+                env.getRequiredProperty("spring.datasource.username")
+        );
         hikariDataSource.setJdbcUrl(env.getRequiredProperty("spring.datasource.url"));
         hikariDataSource.setUsername(env.getRequiredProperty("spring.datasource.username"));
         hikariDataSource.setPassword(env.getRequiredProperty("spring.datasource.password"));
