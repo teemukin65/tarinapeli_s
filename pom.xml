@@ -235,6 +235,7 @@
                         <user>${project.database.username}</user>
                         <password>${project.database.password}</password>
                     </jdbc>
+                    <logging>DEBUG</logging>
                     <generator>
                         <database>
                             <name>org.jooq.util.postgres.PostgresDatabase</name>
