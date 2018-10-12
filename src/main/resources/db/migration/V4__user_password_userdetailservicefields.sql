@@ -1,2 +1,2 @@
-
-ALTER TABLE public.player ADD COLUMN IF NOT EXISTS password CHAR(60);
+ALTER TABLE public.player
+  ADD COLUMN password CHAR(60);

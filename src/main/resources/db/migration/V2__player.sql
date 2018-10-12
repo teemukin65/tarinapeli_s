@@ -1,4 +1,4 @@
-create table player (
+create table public.player (
   id       SERIAL PRIMARY KEY NOT NULL,
   email    CHAR(250)          NOT NULL ,
   nickname CHAR(20),
