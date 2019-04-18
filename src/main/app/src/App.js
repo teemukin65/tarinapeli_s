@@ -27,10 +27,10 @@ export class App extends Component {
 }
 
 
-App.propTypes = {
-  isAuthenticated: React.PropTypes.bool.isRequired,
-  errorMessage: React.PropTypes.string,
+//App.propTypes = {
+//  isAuthenticated: React.PropTypes.booleanValue,
+//  errorMessage: React.PropTypes.stringValue,
 
-}
+//}
 
 
